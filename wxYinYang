@@ -1,143 +1,94 @@
 package wxYinYang
 const wxYY (
-
     Yin="阴"
-
     Yang="阳"
-
 )
-
 const wxYS (
-
     Jin="金"
-
     Mu="木"
-
     Shui="水"
-
     Huo="火"
-
     Tu="土"
-
 )
 
 const wxTG (
-
     Jia = "甲"
-
     Yi = "乙"
-
     Bing = "丙"
-
     Ding ="丁"
-
     Wu ="戊"
-
     Ji ="己"
-
     Geng ="庚"
-
     Xin ="辛"
-
     Ren="壬"
-
     Gui="癸"
-
 )
 
 const wxDZ (
-
     Zi="子"
-
     Chou="丑"
-
     Yin="寅"
-
     Mao="卯"
-
     Chen="辰"
-
     Si="巳"
-
     Wu="午"
-
     Wei="未"
-
     Shen="申"
-
     You="酉"
-
     Xu="戌"
-
     Hai="亥"
-
 )
 
 type YuanSu struct {
-
     yuansu wxYS
-
 }
 
 func (ys YuanSu) XSheng YuanSu {
-
     if ys.yuansu = wxYS.Jin return (YuanSu) wxYS.Shui
-
     if ys.yuansu = wxYS.Mu return (YuanSu) wxYS.Huo
-
     if ys.yuansu = wxYS.Shui return (YuanSu) wxYS.Mu
-
     if ys.yuansu = wxYS.Huo return (YuanSu) wxYS.Tu
-
     if ys.yuansu = wxYS.Tu return (YuanSu) wxYS.Jin
-
 }
 
-func (ys YuanSu) XKe wxYuanSu {
-
+func (ys YuanSu) XKe YuanSu {
     if ys.yuansu = wxYS.Jin return (YuanSu) wxYS.Mu
-
     if ys.yuansu = wxYS.Mu return (YuanSu) wxYS.Tu
-
     if ys.yuansu = wxYS.Shui return (YuanSu) wxYS.Huo
-
     if ys.yuansu = wxYS.Huo return (YuanSu) wxYS.Jin
-
     if ys.yuansu = wxYS.Tu return (YuanSu) wxYS.Shui
+}
 
+type TianGan struct {
+    num int
+    name wxTG
+    yinyang wxYY
+    wuxing YuanSu
+}
+
+type DiZhi struct {
+    num int
+    name wxDZ
+    yinyang wxYY
+    wuxing YuanSu
 }
 
 type GZ struct {
-
-    TianGan wxTG
-
-    DiZhi wxDZ
-
+    tg TianGan
+    dz DiZhi
 }
 
-func (gz GZ) 
-
-
-
-type \WuXing struct {
-
-    Jin wxYuanSu
-
-    Mu wxYuanSu
-
-    Shui wxYuanSu
-
-    Huo wxYuanSu
-
-    Tu wxYuanSu
-
+func (gz GZ) Next(){
+    return gz.next
 }
 
+type WuXing struct {
+    Jin YuanSu
+    Mu YuanSu
+    Shui YuanSu
+    Huo YuanSu
+    Tu YuanSu
+}
 
 func (wx WuXing) sheng WuXing {
-
-    
-
-    
-
 }
