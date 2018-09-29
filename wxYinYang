@@ -9,7 +9,7 @@ type YinYang struct{
     name string
     du int
 }
-
+//构造函数
 func new_yinyang(i int) YinYang {
     yy:= YinYang()
     yy.index=i
@@ -18,6 +18,7 @@ func new_yinyang(i int) YinYang {
     
 }
 
+//取反操作
 func (yy YinYang) xsheng() YinYang {
     if yy.index==0 renturn new_yinyang(1) else { return new_yinyang(0)}
 }
