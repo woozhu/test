@@ -18,13 +18,33 @@ func new_yinyang(i int) YinYang {
     
 }
 
-func (yy YinYang) xsheng YinYang {
+func (yy YinYang) xsheng() YinYang {
     if yy.index==0 renturn new_yinyang(1) else { return new_yinyang(0)}
 }
 func (yy YinYang) xchange YinYang {
     switch yy.du :{
-
-
+    case yy.du/3==0:
+         return yy
+         break
+    case yy.du/3>0:
+         j:=yy.du%3
+         for i:=0;i<yy.du/3;i++{
+             yys:=yy.xsheng()
+             yy= yys
+         }
+         yy.du=j
+         return yy
+         break
+    
+    case yy.du/3<0:
+         j:=yy.du%3
+         for i:=0;i>yy.du/3;i—{
+             yy=yy.xsheng()
+         }
+         yy.du=j
+         return yy
+         break
+    }
 }
 func (yy YinYang) xplus (yi YinYang){
     if yy.index==yi.index yy.du +=1 else {yy.du -=1}
