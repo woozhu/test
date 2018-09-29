@@ -3,6 +3,33 @@ const wxYY (
     Yin="阴"
     Yang="阳"
 )
+
+type YinYang struct{
+    index int
+    name string
+    du int
+}
+
+func new_yinyang(i int) YinYang {
+    yy:= YinYang()
+    yy.index=i
+    if i==0 {yy.name=wxYY.Yin} else {yy.name=wxYY.Yang}
+    yy.du=1
+    
+}
+
+func (yy YinYang) xsheng YinYang {
+    if yy.index==0 renturn new_yinyang(1) else { return new_yinyang(0)}
+}
+func (yy YinYang) xchange YinYang {
+    switch yy.du :{
+
+
+}
+func (yy YinYang) xplus (yi YinYang){
+    if yy.index==yi.index yy.du +=1 else {yy.du -=1}
+
+}
 const wxYS (
     Jin="金"
     Mu="木"
@@ -44,7 +71,7 @@ type YuanSu struct {
 }
 
 func (ys YuanSu) XSheng YuanSu {
-    if ys.yuansu = wxYS.Jin return (YuanSu) wxYS.Shui
+    if ys.yuansu == wxYS.Jin return (YuanSu) wxYS.Shui
     if ys.yuansu = wxYS.Mu return (YuanSu) wxYS.Huo
     if ys.yuansu = wxYS.Shui return (YuanSu) wxYS.Mu
     if ys.yuansu = wxYS.Huo return (YuanSu) wxYS.Tu
