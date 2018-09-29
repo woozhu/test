@@ -1,1 +1,144 @@
-wuxing sizhu yinyabg
+package wannianli
+
+import (
+    "fmt"
+    //"log"
+)
+
+//判断平润年
+func leap_year(year int) bool {
+    if year%4 == 0 && year%100 != 0 || year%400 == 0 {
+        return true
+    } else {
+        return false
+    }
+}
+
+//得到每个年份每月的天数
+func getMonthDays(year int, month int) int {
+    days := 31
+    switch days {
+    case 2:
+        {
+            if leap_year(year) {
+                days = 29
+            } else {
+                days = 28
+            }
+        }
+    case 4, 6, 9, 11:
+        {
+            days = 30
+        }
+    }
+    return days
+}
+
+//
+func getTotalDays(year int, month int) int {
+    totalDays := 0
+    for i := 1; i < year; {
+        if leap_year(i) == true {
+            totalDays += 366
+        } else {
+            totalDays += 365
+        }
+        i++
+    }
+    for j := 1; j < month; {
+        totalDays += getMonthDays(year, j)
+        j++
+    }
+    return totalDays
+}
+
+func main() {
+    fmt.Print(leap_year(2018))
+}
+ package wuxing
+
+import (
+    "fmt"
+    "log"
+)
+
+import (
+    "walk"
+    . "walk/declarative"
+    "win"
+)
+
+const wxYY (
+    Yin="阴"
+    Yang="阳"
+)
+const wxYS (
+    Jin="金"
+    Mu="木"
+    Shui="水"
+    Huo="火"
+    Tu="土"
+)
+const wxTG (
+    Jia = "甲"
+    Yi = "乙"
+    Bing = "丙"
+    Ding ="丁"
+    Wu ="戊"
+    Ji ="己"
+    Geng ="庚"
+    Xin ="辛"
+    Ren="壬"
+    Gui="癸"
+)
+const wxDZ (
+    Zi="子"
+    Chou="丑"
+    Yin="寅"
+    Mao="卯"
+    Chen="辰"
+    Si="巳"
+    Wu="午"
+    Wei="未"
+    Shen="申"
+    You="酉"
+    Xu="戌"
+    Hai="亥"
+)
+type YuanSu struct {
+    yuansu wxYS
+}
+func (ys YuanSu) XSheng YuanSu {
+    if ys.yuansu = wxYS.Jin return (YuanSu) wxYS.Shui
+    if ys.yuansu = wxYS.Mu return (YuanSu) wxYS.Huo
+    if ys.yuansu = wxYS.Shui return (YuanSu) wxYS.Mu
+    if ys.yuansu = wxYS.Huo return (YuanSu) wxYS.Tu
+    if ys.yuansu = wxYS.Tu return (YuanSu) wxYS.Jin
+}
+func (ys YuanSu) XKe wxYuanSu {
+    if ys.yuansu = wxYS.Jin return (YuanSu) wxYS.Mu
+    if ys.yuansu = wxYS.Mu return (YuanSu) wxYS.Tu
+    if ys.yuansu = wxYS.Shui return (YuanSu) wxYS.Huo
+    if ys.yuansu = wxYS.Huo return (YuanSu) wxYS.Jin
+    if ys.yuansu = wxYS.Tu return (YuanSu) wxYS.Shui
+}
+type GZ struct {
+    TianGan wxTG
+    DiZhi wxDZ
+}
+func (gz GZ) 
+
+
+type \WuXing struct {
+    Jin wxYuanSu
+    Mu wxYuanSu
+    Shui wxYuanSu
+    Huo wxYuanSu
+    Tu wxYuanSu
+}
+
+func (wx WuXing) sheng WuXing {
+    
+    
+}
+
