@@ -82,6 +82,34 @@ func (list *List) PopFront() bool {
     list.Size--
     return true
 }
+//向前转动列表
+//将列表向前转动n个节点之后的列表
+func (list *List) ForWard(n int)
+{
+    if list.Size > 1 {
+        for i:=0;i< n%list.Size;i++{
+            sf:= list.First //找到第一个节点
+            sf.Next=list.First.Next
+            sf.Pre= list.Last
+            list.First=sf.Next
+            list.Last= sf
+        }
+    }
+}
+//向后转动列表
+//将列表向后转动n个节点之后的列表
+func (list *List) BackWard(n int) bool
+{
+    if list.Size > 1{
+        for i:=0;i<n%list.Size;i++{
+            sl:= list.Last
+            sl.Pre= list.Last.Pre
+            sl.Next=list.First
+            list.first=sl
+            list.Last=sl.Pre
+        }
+    }
+}
 
 //查找指定元素
 func (list *List) Find(x ElemType) *Node {
