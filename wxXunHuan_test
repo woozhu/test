@@ -1,25 +1,24 @@
-package main
+package wxXunHuan
 
 import (
-    "github.com/woozhu/test/wxXunHuan"
+	"testing"
 )
 
-func main() {
-    list := wxXunHuan.CreateList()
-    s := []int{1, 2, 3, 4, 5, 6, 7}
-    for _, v := range s {
-        list.PushBack(v)
-    }
-    //list.Print()
-    list.Modify(5, 55)
-    list.Print()
-    list.DeleteVal(7)
-    list.Print()
-    list.PopBack()
-    list.Print()
-    list.PopFront()
-    list.Print()
-    list.Reverse()
-    list.Print()
+func Test0001(test *testing.T) {
+	list := CreateList()
+	s := []string{"木", "火", "土", "金", "水"}
+	for _, v := range s {
+		list.PushBack(v)
+	}
+	list.Print()
+	list.BackWard(3)
+	list.Print()
+	list.ForWard(3)
+	list.Print()
+	list.ForWard(2)
+	list.Print()
+	list.Reverse()
+	list.Print()
 
 }
+
