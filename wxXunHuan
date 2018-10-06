@@ -1,192 +1,199 @@
 package wxXunHuan
 
 import (
-    "errors"
-    "fmt"
+	"errors"
+	"fmt"
 )
 
 type ElemType interface{}
 
 //结点
 type Node struct {
-    Data ElemType
-    Pre  *Node
-    Next *Node
+	Data ElemType
+	Pre  *Node
+	Next *Node
 }
 
 //链表
 type List struct {
-    First *Node
-    Last  *Node
-    Size  int
+	First *Node
+	Last  *Node
+	Size  int
 }
 
 //工厂函数
 func CreateList() *List {
-    s := new(Node)
-    s.Next, s.Pre = s, s
-    return &List{s, s, 0}
+	s := new(Node)
+	s.Next, s.Pre = s, s
+	return &List{s, s, 0}
 }
 
 //尾插法
+//尾插法，改变的是最后一个节点的定义，新定义节点的前后节点，链表的首末节点
 func (list *List) PushBack(x ElemType) {
-    s := new(Node)
-    s.Data = x
-    list.Last.Next = s
-    s.Pre = list.Last
-
-    list.Last = s
-    list.Last.Next = list.First
-    list.First.Pre = list.Last
-    list.Size++
+	s := new(Node)
+	s.Data = x                  //s节点的数据定义
+	list.Last.Next = s          //改变最后一个节点的next节点
+	s.Pre = list.Last           //s节点的前节点定义
+	list.Last = s               //重定义Last节点 尾插所以First节点不变
+	list.Last.Next = list.First //最后一个节点的下一个节点改变
+	list.First.Pre = list.Last  //第一个节点的前节点改变
+	list.Size++
 }
 
 //头插法
+//头插法，改变第一个节点，
 func (list *List) PushFront(x ElemType) {
-    s := new(Node)
-    s.Data = x
-    s.Next = list.First.Next
-    list.First.Next.Pre = s
+	s := new(Node)
+	s.Data = x
 
-    list.First.Next = s
-    s.Pre = list.First
-    if list.Size == 0 {
-        list.Last = s
-    }
-    list.Size++
+	s.Next = list.First.Next
+	list.First.Next.Pre = s
+
+	list.First.Next = s
+	s.Pre = list.First
+	if list.Size == 0 {
+		list.Last = s
+	}
+	list.Size++
 }
 
 //尾删法
 func (list *List) PopBack() bool {
-    if list.IsEmpty() {
-        return false
-    }
-    s := list.Last.Pre //找到最后一个节点的前驱
-    s.Next = list.First
-    list.Last = s
-    list.Size--
-    return true
+	if list.IsEmpty() {
+		return false
+	}
+	s := list.Last.Pre //找到最后一个节点的前驱
+	s.Data = list.Last.Pre.Data
+	s.Next = list.First
+	s.Pre = list.Last.Pre.Pre
+	list.Last = s
+	if list.Size == 1 {
+		list.First = list.Last
+	}
+	list.Size--
+	return true
 }
 
 //头删法
 func (list *List) PopFront() bool {
-    if list.IsEmpty() {
-        return false
-    }
-    s := list.First.Next //找到第一个节点
-    list.First.Next = s.Next
-    s.Next.Pre = list.First
-    if list.Size == 1 {
-        list.Last = list.First
-    }
-    list.Size--
-    return true
+	if list.IsEmpty() {
+		return false
+	}
+	s := list.First.Next //找到第一个节点
+	list.First.Next = s.Next
+	s.Next.Pre = list.First
+	if list.Size == 1 {
+		list.Last = list.First
+	}
+	list.Size--
+	return true
 }
+
 //向前转动列表
 //将列表向前转动n个节点之后的列表
-func (list *List) ForWard(n int)
-{
-    if list.Size > 1 {
-        for i:=0;i< n%list.Size;i++{
-            sf:= list.First //找到第一个节点
-            sf.Next=list.First.Next
-            sf.Pre= list.Last
-            list.First=sf.Next
-            list.Last= sf
-        }
-    }
+func (list *List) ForWard(n int) {
+	s := new(Node)
+	if list.Size > 1 {
+		for i := 0; i < n%list.Size; i++ {
+			s = list.First.Next
+			s.Data = list.First.Next.Data
+			list.PopFront()
+			list.PushBack(s.Data)
+		}
+	}
 }
+
 //向后转动列表
 //将列表向后转动n个节点之后的列表
-func (list *List) BackWard(n int) bool
-{
-    if list.Size > 1{
-        for i:=0;i<n%list.Size;i++{
-            sl:= list.Last
-            sl.Pre= list.Last.Pre
-            sl.Next=list.First
-            list.first=sl
-            list.Last=sl.Pre
-        }
-    }
+func (list *List) BackWard(n int) {
+	s := new(Node)
+	if list.Size > 1 {
+		for i := 0; i < n%list.Size; i++ {
+			s = list.Last
+			s.Data = list.Last.Data
+			list.PopBack()
+			list.PushFront(s.Data)
+		}
+	}
 }
 
 //查找指定元素
 func (list *List) Find(x ElemType) *Node {
-    s := list.First.Next
-    for s != list.First {
-        if x == s.Data {
-            return s
-        } else {
-            s = s.Next
-        }
-    }
-    return nil
+	s := list.First.Next
+	for s != list.First {
+		if x == s.Data {
+			return s
+		} else {
+			s = s.Next
+		}
+	}
+	return nil
 }
 
 //按值删除结点
 func (list *List) DeleteVal(x ElemType) bool {
-    s := list.Find(x)
-    if s != nil {
-        s.Pre.Next = s.Next
-        s.Next.Pre = s.Pre
-        list.Size--
-        //如果删除的是最后一个结点
-        if s == list.Last {
-            list.Last = s.Pre
-        }
-        return true
-    }
-    return false
+	s := list.Find(x)
+	if s != nil {
+		s.Pre.Next = s.Next
+		s.Next.Pre = s.Pre
+		list.Size--
+		//如果删除的是最后一个结点
+		if s == list.Last {
+			list.Last = s.Pre
+		}
+		return true
+	}
+	return false
 }
 
 //把值为x的元素的值修改为y
 func (list *List) Modify(x, y ElemType) bool {
-    s := list.Find(x)
-    if s != nil {
-        s.Data = y
-        return true
-    }
-    return false
+	s := list.Find(x)
+	if s != nil {
+		s.Data = y
+		return true
+	}
+	return false
 }
 
 //判断链表是否为空
 func (list *List) IsEmpty() bool {
-    return list.Size == 0
+	return list.Size == 0
 }
 
 //反转链表
 //保留第一个结点，将剩余的结点游离出来，然后依次头插到保留的结点中
 func (list *List) Reverse() {
-    if list.Size > 1 {
-        s := list.First.Next
-        p := s.Next
-        s.Next = list.First //第一个结点逆置后成为最后一个结点
-        list.Last = s
+	if list.Size > 1 {
+		s := list.First.Next
+		p := s.Next
+		s.Next = list.First //第一个结点逆置后成为最后一个结点
+		list.Last = s
 
-        for p != list.First {
-            s = p
-            p = p.Next
+		for p != list.First {
+			s = p
+			p = p.Next
 
-            s.Next = list.First.Next
-            list.First.Next.Pre = s
+			s.Next = list.First.Next
+			list.First.Next.Pre = s
 
-            s.Pre = list.First
-            list.First.Next = s
-        }
-    }
+			s.Pre = list.First
+			list.First.Next = s
+		}
+	}
 }
 
 //打印链表
 func (list *List) Print() error {
-    if list.IsEmpty() {
-        return errors.New("this is an empty list")
-    }
-    s := list.First.Next
-    for s != list.First {
-        fmt.Printf("%v  ", s.Data)
-        s = s.Next
-    }
-    fmt.Println()
-    return nil
+	if list.IsEmpty() {
+		return errors.New("this is an empty list")
+	}
+	s := list.First.Next
+	for s != list.First {
+		fmt.Printf("%v  ", s.Data)
+		s = s.Next
+	}
+	fmt.Println()
+	return nil
 }
