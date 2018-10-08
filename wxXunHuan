@@ -133,20 +133,24 @@ func (list *List) Find(x ElemType) *Node {
 
 //把所有元素按照相等的角度排列一圈，共计360度,第一个元素在正北方。查找指定角度所在的元素，角度值为度数。
 func (list *List) FindFromAngle(a int) *Node {
-        b := a%360     //取度数值除以360的余数，多于一圈的按照一圈内计算。
-	if b<0 {
-	    b=360+b
-	}
+	b := a%360     //取度数值除以360的余数，多于一圈的按照一圈内计算。
 	m := 360/list.Size
-	s := list.First.Next
-	if a>(list.Size-1)*m+m/2 || a < m/2{
-	    return s
+	if b<0 {
+		b=360+b
 	}
-	for i:=0;i<list.Size-1;i++{
-	    if a>m*i-m/2 && a<m*i+m/2{
-	        s = s.Next
-		return s
-	    }
+	s := list.First.Next
+	if b>=0{
+		if b>=(list.Size-1)*m+m/2 || b < m/2{
+			return s
+		}else{
+			for i:=1;i<list.Size;{
+				s = s.Next
+				if b>=m*i-m/2 && b<m*i+m/2{
+					return s
+				}
+				i++
+			}
+		}
 	}
 	return nil
 }
