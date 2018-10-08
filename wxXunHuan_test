@@ -1,24 +1,21 @@
 package wxXunHuan
 
 import (
+	"fmt"
 	"testing"
 )
 
 func Test0001(test *testing.T) {
 	list := CreateList()
-	s := []string{"木", "火", "土", "金", "水"}
+	s := []string{"子", "丑","寅","卯","辰","巳","午","未","申","酉","戌","亥"}
 	for _, v := range s {
 		list.PushBack(v)
 	}
 	list.Print()
-	list.BackWard(3)
-	list.Print()
-	list.ForWard(3)
+	fmt.Println(list.FindByAngle(-16).Data)
 	list.Print()
 	list.ForWard(2)
 	list.Print()
 	list.Reverse()
 	list.Print()
-
 }
-
