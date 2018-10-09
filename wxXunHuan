@@ -144,6 +144,25 @@ func (list *List) GetAngle(x ElemType) int {
 	}
 	return nil
 }
+
+//把所有元素按照相等的角度排列一圈，共计360度,第一个元素在正北方。查找指定索引所在的元素，索引值为整数。正负均可。
+func (list *List) FindByIndex(a int) *Node {
+	b := a%list.Size     //取度数值除以Size的余数，多于一圈的按照一圈内计算。
+	if b<0 {
+		b=list.Size+b
+	}
+	s := list.First.Next
+	i:=0
+	for s !=list.First {
+	        if i == b{
+		    return s
+		} else {
+		     s = s.Next
+		     i++
+		}
+	}
+	return nil
+}
 //把所有元素按照相等的角度排列一圈，共计360度,第一个元素在正北方。查找指定角度所在的元素，角度值为度数。
 func (list *List) FindByAngle(a int) *Node {
 	b := a%360     //取度数值除以360的余数，多于一圈的按照一圈内计算。
@@ -152,17 +171,16 @@ func (list *List) FindByAngle(a int) *Node {
 		b=360+b
 	}
 	s := list.First.Next
-	if b>=0{
-		if b>=(list.Size-1)*m+m/2 || b < m/2{
-			return s
-		}else{
-			for i:=1;i<list.Size;{
-				s = s.Next
-				if b>=m*i-m/2 && b<m*i+m/2{
-					return s
-				}
-				i++
+
+	if b>=(list.Size-1)*m+m/2 || b < m/2{
+		return s
+	}else{
+		for i:=1;i<list.Size;{
+			s = s.Next
+			if b>=m*i-m/2 && b<m*i+m/2{
+				return s
 			}
+			i++
 		}
 	}
 	return nil
