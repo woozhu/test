@@ -74,16 +74,19 @@ func newWuXing(id int,name string,cname string) WuXing{
 func (wx *WuXing) xchange() WuXing{
     switch wx.id{
         case 0{
-            return newSiXiang(1,"ShaoYang","少阳")
+            return newSiXiang(1,"Huo","火")
         }
         case 1{
-            return newSiXiang(2,"LaoYang","老阳")
+            return newSiXiang(2,"Tu","土")
         }
         case 2{
-            return newSiXiang(3,"ShaoYin","少阴")
+            return newSiXiang(3,"Jin","金")
         }
         case 3{
-            return newSiXiang(0,"LaoYin","老阴")
+            return newSiXiang(4,"Shui","水")
+        }
+        case 4{
+            return newSiXiang(0,"Mu","木")
         }
         default return nil
     }
@@ -103,4 +106,43 @@ type DiZhi struct{
     wx WuXing
     yy YinYang
     canggan []TianGan
+}
+
+type NianZhu struct{
+    id int
+    name string
+    cname string
+    tg TianGan
+    dz DiZhi
+}
+
+type YueZhu struct{
+    id int
+    name string
+    cname string
+    tg TianGan
+    dz DiZhi
+}
+
+type RiZhu struct{
+    id int
+    name string
+    cname string
+    tg TianGan
+    dz DiZhi
+}
+
+type ShiZhu struct{
+    id int
+    name string
+    cname string
+    tg TianGan
+    dz DiZhi
+}
+
+type SiZhu struct{
+    nz NianZhu
+    yz YueZhu
+    rz RiZhu
+    sz ShiZhu
 }
