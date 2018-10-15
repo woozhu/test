@@ -34,3 +34,11 @@ func Test0001(test *testing.T) {
 	list.Reverse()
 	list.Print()
 }
+func TestGetSolarTerm(t *testing.T) {
+	obj := solar2lunar(2018, 10, 17)
+	obj1 := lunar2solar(2018, 9, 19, false)
+	fmt.Println(obj.animal, obj.ganzhiYear, obj.ganzhiMonth, obj.ganzhiDay, obj.lunarYear, obj.lunarMonthChineseName, obj.lunarDayChineseName, obj.weekChineseName)
+	fmt.Println(obj1.solarYear, obj1.solarMonth, obj1.solarDay, obj1.term)
+
+	fmt.Println(leapDays(1987))
+}
