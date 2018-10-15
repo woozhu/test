@@ -63,21 +63,55 @@ func newCode() *wxCode{
     return &wc
 }
 
-func (wc *wxCode) caculateRiZhu(ygz GanZhi,rgz GanZhi) {
-     
+ func (wc *wxCode) caculateRiZhu(ygz GanZhi,rgz GanZhi){
+   for i,ls :=range tgcode{
+     if rgz.tg.id == i{
+      for j,tgl:=range ls{
+          wc[j]=tgl
+      }
+     }
+    }
+  for i,ls :=range dzcgcode{
+   if rgz.dz.id ==i{
+    for j,dzl:=range ls{
+     if ygz.dz.id ==j{
+      for a,b:=range dzl{
+        wc[a]=b
+      }
+     }
+    }
+   }
+  }
 }
-func (wc *wxCode) caculateShiZhu(sgz GanZhi) {
-
+func (wc *wxCode) caculateShiZhu(ygz GanZhi,sgz GanZhi) {
+     return wc.caculateRiZhu(ygz,sgz)
 }
 func (wc *wxCode) caculateYueZhu(ygz GanZhi) {
-
+  for i,ls :=range tgcode{
+     if ygz.tg.id == i{
+      for j,tgl:=range ls{
+          wc[j]=tgl
+      }
+     }
+    }
+  for i,ls :=range dzcgcode{
+   if ygz.dz.id ==i{
+    for j,dzl:=range ls{
+     if ygz.dz.id ==j{
+      for a,b:=range dzl{
+        wc[a]=b
+      }
+     }
+    }
+   }
+  }
 }
-func (wc *wxCode) caculateNianZhu(ngz GanZhi) {
-
+func (wc *wxCode) caculateNianZhu(ygz GanZhi,ngz GanZhi) {
+    return wc.caculateRiZhu(ygz,ngz)
 }
 func (wc *wxCode) caculateSiZhu(sz SiZhu) {
      wc.caculateRiZhu(sz.YueZhu,sz.RiZhu)
-     wc.caculateShiZhu(sz.ShiZhu)
+     wc.caculateShiZhu(sz.YueZhu,sz.ShiZhu)
      wc.caculateYueZhu(sz.YueZhu)
-     wc.caculateNianZhu(si.NianZhu)
+     wc.caculateNianZhu(sz.YueZhu,si.NianZhu)
 }
