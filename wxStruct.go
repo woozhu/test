@@ -21,20 +21,16 @@ func newYinYang(id int, name string, cname string) YinYang {
 	return YinYang{id: id, name: name, cname: cname}
 }
 
-//集成taiji的xchange接口
-func (y *YinYang) xchange() YinYang {
-	if y.id == 0 {
-		return newYinYang(1, "Yang", "阳")
-	} else {
-		return newYinYang(0, "Yin", "阴")
-	}
-}
-
 var (
 	yin     = newYinYang(0, "Yin", "阴")
 	yang    = newYinYang(1, "Yang", "阳")
 	yinyang = []YinYang{yin, yang}
 )
+
+//集成taiji的xchange接口
+func (y *YinYang) xchange() YinYang {
+	return yinyang[(y.id+1)%2]
+}
 
 type SiXiang struct {
 	id    int
@@ -52,29 +48,6 @@ func newSiXiang(id int, name string, cname string) SiXiang {
 	return SiXiang{id: id, name: name, cname: cname}
 }
 
-//集成taiji的xchange接口
-func (sx *SiXiang) xchange() SiXiang {
-	switch sx.id {
-	case 0:
-		{
-			return newSiXiang(1, "ShaoYang", "少阳")
-		}
-	case 1:
-		{
-			return newSiXiang(2, "LaoYang", "老阳")
-		}
-	case 2:
-		{
-			return newSiXiang(3, "ShaoYin", "少阴")
-		}
-	case 3:
-		{
-			return newSiXiang(0, "LaoYin", "老阴")
-		}
-	}
-	return SiXiang{}
-}
-
 var (
 	laoyin   = newSiXiang(0, "LaoYin", "老阴")
 	shaoyang = newSiXiang(1, "ShaoYang", "少阳")
@@ -83,6 +56,10 @@ var (
 	sixiang  = []SiXiang{laoyin, shaoyang, laoyang, shaoyin, laoyin}
 )
 
+//集成taiji的xchange接口
+func (sx *SiXiang) xchange() SiXiang {
+	return sixiang[(sx.id+1)%4]
+}
 type WuXing struct {
 	id    int
 	name  string
@@ -99,33 +76,6 @@ func newWuXing(id int, name string, cname string) WuXing {
 	return WuXing{id: id, name: name, cname: cname}
 }
 
-//集成taiji的xchange接口
-func (wx *WuXing) xchange() WuXing {
-	switch wx.id {
-	case 0:
-		{
-			return newWuXing(1, "Huo", "火")
-		}
-	case 1:
-		{
-			return newWuXing(2, "Tu", "土")
-		}
-	case 2:
-		{
-			return newWuXing(3, "Jin", "金")
-		}
-	case 3:
-		{
-			return newWuXing(4, "Shui", "水")
-		}
-	case 4:
-		{
-			return newWuXing(0, "Mu", "木")
-		}
-	}
-	return WuXing{}
-}
-
 var (
 	mu     = newWuXing(0, "Mu", "木")
 	huo    = newWuXing(1, "Huo", "火")
@@ -134,6 +84,11 @@ var (
 	shui   = newWuXing(4, "Shui", "水")
 	wuxing = []WuXing{mu, huo, tu, jin, shui}
 )
+
+//集成taiji的xchange接口
+func (wx *WuXing) xchange() WuXing {
+	return wuxing[(wx.id+1)%5]
+}
 
 type TianGan struct {
 	id    int
@@ -150,60 +105,8 @@ func (tg *TianGan) String() string {
 
 //构造函数
 func newTianGan(id int, name string, cname string) TianGan {
-	tgwx := WuXing{}
-	tgyy := YinYang{}
-	switch id {
-	case 0:
-		{
-			tgwx = mu
-			tgyy = yang
-		}
-	case 1:
-		{
-			tgwx = mu
-			tgyy = yin
-		}
-	case 2:
-		{
-			tgwx = huo
-			tgyy = yang
-		}
-	case 3:
-		{
-			tgwx = huo
-			tgyy = yin
-		}
-	case 4:
-		{
-			tgwx = tu
-			tgyy = yang
-		}
-	case 5:
-		{
-			tgwx = tu
-			tgyy = yin
-		}
-	case 6:
-		{
-			tgwx = jin
-			tgyy = yang
-		}
-	case 7:
-		{
-			tgwx = jin
-			tgyy = yin
-		}
-	case 8:
-		{
-			tgwx = shui
-			tgyy = yang
-		}
-	case 9:
-		{
-			tgwx = shui
-			tgyy = yin
-		}
-	}
+	tgwx:=wuxing[(id-id%2)/2]
+	tgyy:=yinyang[(id+1)%2]
 	return TianGan{id: id, name: name, cname: cname, wx: tgwx, yy: tgyy}
 }
 
@@ -235,133 +138,71 @@ func (dz *DiZhi) String() string {
 	return str
 }
 func (dz *DiZhi) GetShengXiao() string {
-	switch dz.id {
-	case 0:
-		{
-			return "鼠"
-		}
-	case 1:
-		{
-			return "牛"
-		}
-	case 2:
-		{
-			return "虎"
-		}
-	case 3:
-		{
-			return "兔"
-		}
-	case 4:
-		{
-			return "龙"
-		}
-	case 5:
-		{
-			return "蛇"
-		}
-	case 6:
-		{
-			return "马"
-		}
-	case 7:
-		{
-			return "羊"
-		}
-	case 8:
-		{
-			return "猴"
-		}
-	case 9:
-		{
-			return "鸡"
-		}
-	case 10:
-		{
-			return "狗"
-		}
-	case 11:
-		{
-			return "猪"
-		}
-	}
-	return ""
+	return AnimalList[dz.id]
 }
 func newDiZhi(id int, name string, cname string) DiZhi {
 	dzwx := WuXing{}
-	dzyy := YinYang{}
+	dzyy:=yinyang[(id+1)%2]
 	dzcg := []TianGan{}
 	switch id {
 	case 0:
 		{
 			dzwx = shui
-			dzyy = yang
 			dzcg = []TianGan{tgGui}
 		}
 	case 1:
 		{
 			dzwx = tu
-			dzyy = yin
 			dzcg = []TianGan{tgJi, tgGui, tgXin}
 		}
 	case 2:
 		{
 			dzwx = mu
-			dzyy = yang
 			dzcg = []TianGan{tgJia, tgBing, tgWu}
 		}
 	case 3:
 		{
 			dzwx = mu
-			dzyy = yin
 			dzcg = []TianGan{tgYi}
 		}
 	case 4:
 		{
 			dzwx = tu
-			dzyy = yang
 			dzcg = []TianGan{tgWu, tgJi, tgGui}
 		}
 	case 5:
 		{
 			dzwx = huo
-			dzyy = yin
 			dzcg = []TianGan{tgBing, tgWu, tgGeng}
 		}
 	case 6:
 		{
 			dzwx = huo
-			dzyy = yang
 			dzcg = []TianGan{tgDing, tgJi}
 		}
 	case 7:
 		{
 			dzwx = tu
-			dzyy = yin
 			dzcg = []TianGan{tgJi, tgDing, tgYi}
 		}
 	case 8:
 		{
 			dzwx = jin
-			dzyy = yang
 			dzcg = []TianGan{tgGeng, tgRen, tgWu}
 		}
 	case 9:
 		{
 			dzwx = jin
-			dzyy = yin
 			dzcg = []TianGan{tgXin}
 		}
 	case 10:
 		{
 			dzwx = tu
-			dzyy = yang
 			dzcg = []TianGan{tgWu, tgXin, tgDing}
 		}
 	case 11:
 		{
 			dzwx = shui
-			dzyy = yin
 			dzcg = []TianGan{tgRen, tgJia}
 		}
 	}
