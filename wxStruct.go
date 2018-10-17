@@ -234,21 +234,7 @@ type GanZhi struct {
 
 //干支的id是从0到59的一个循环。
 func newGanZhi(id int) GanZhi {
-	var (
-		gz = GanZhi{}
-	)
-	gz.id = id
-	for _, t := range tiangan {
-		if t.id == id%10 {
-			gz.tg = t
-		}
-	}
-	for _, d := range dizhi {
-		if d.id == id%12 {
-			gz.dz = d
-		}
-	}
-	return gz
+	return GazZhi{id:id,tg:tiangan[id%10],dz:dizhi[id%12]}
 }
 func (gz *GanZhi) String() string {
 	str := fmt.Sprintf("id=[%d] cname=[%s%s]", gz.id, gz.tg.cname, gz.dz.cname)
