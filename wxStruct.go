@@ -311,40 +311,9 @@ var (
 		gzJiaYin, gzYiMao, gzBingChen, gzDingSi, gzWuWu, gzJiWei, gzGengShen, gzXinYou, gzRenXu, gzGuiHai}
 )
 
-type NianZhu struct {
-	id    int
-	name  string
-	cname string
-	tg    TianGan
-	dz    DiZhi
-}
-type YueZhu struct {
-	id    int
-	name  string
-	cname string
-	tg    TianGan
-	dz    DiZhi
-}
-
-type RiZhu struct {
-	id    int
-	name  string
-	cname string
-	tg    TianGan
-	dz    DiZhi
-}
-
-type ShiZhu struct {
-	id    int
-	name  string
-	cname string
-	tg    TianGan
-	dz    DiZhi
-}
-
 type SiZhu struct {
-	nz NianZhu
-	yz YueZhu
-	rz RiZhu
-	sz ShiZhu
+	nz GanZhi
+	yz GanZhi
+	rz GanZhi
+	sz GanZhi
 }
