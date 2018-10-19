@@ -6,8 +6,20 @@ type ZiWeiGong struct{
     cname string
     tg TianGan
     dz Dizhi
-    daxian []int
-    xiaoxian []int
-    xings []ZiWeiXing
-    wangshuan []string
+    daXian []int
+    xiaoXian []int
+    zwStars []ZiWeiXing
+    
+}
+type ZiWeiStars struct{
+    id int
+    name string
+    cnmae string
+    ziweiGong ZiWeiGong
+    wangShuan []string
+}
+
+type ZiWei struct{
+    sizhu SiZhu
+    ziweiList ZiWeiList
 }
