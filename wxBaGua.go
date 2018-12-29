@@ -23,3 +23,11 @@ func List2Int(sxl []int) int{
     s:=List2String(sxl)
     return int(strconv.AtoI(s))
 }
+
+func Int2List(i int) []int {
+    var l=[]int{}
+    for _,ii:=range(strconv.ItoA(i)){
+        l = append(l,strconv.AtoI(ii))
+    }
+    return l
+}
