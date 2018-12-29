@@ -35,3 +35,34 @@ func Int2List(i int) []int {
     }
     return l
 }
+//对数序处理
+func GetGongGua(sxl []int) []int {
+    s:= List2Int(sxl)
+    var r = []int{}
+    for i,j:=range(64Gua){
+        for _,k:=range(j){
+            if s==k{r=Int2List(i)}
+        }
+    }
+    return r
+}
+//对数序处理
+func GetBenGua(sxl []int) []int {
+    var r= []int{}
+    for _,i:=range(sxl){
+        r = append(r,i%2)
+    }
+    return r
+}
+//对数序处理
+func GetBianGua(sxl []int) []int {
+    var r= []int{}
+    for _,i:= range(sxl){
+        i=i%4
+        switch {
+        case i%4==0||i%4==1:{r=append(r,1)}
+        case i%4==3||i%4==2:{r=append(r,0)}
+        }
+    }
+    return r
+}
