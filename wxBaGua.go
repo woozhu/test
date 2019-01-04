@@ -2,6 +2,57 @@ package wxBaGua
 
 import “strconv”
 
+//选项卡模式
+
+type LiuYaoOptions struct {
+    optionStr1 string
+    optionStr2 string
+    optionInt1 int
+    optionInt2 int
+}
+
+var defaultLiuYaoOptions = LiuYaoOptions{
+    optionStr1: "defaultStr1",
+    optionStr2: "defaultStr2",
+    optionInt1: 1,
+    optionInt2: 2,
+}
+
+func LiuYao(requiredStr string, opts ...LiuYaoOption) {
+    options := defaultLiuYaoOptions
+    for _, o := range opts {
+        o(&options)
+    }
+
+    fmt.Println(requiredStr, options.optionStr1, options.optionStr2, options.optionInt1, options.optionInt2)
+}
+
+type LiuYaoOption func(options *LiuYaoOptions)
+
+func WithOptionStr1(str1 string) LiuYaoOption {
+    return func(options *LiuYaoOptions) {
+        options.optionStr1 = str1
+    }
+}
+
+func WithOptionInt1(int1 int) LiuYaoOption {
+    return func(options *LiuYaoOptions) {
+        options.optionInt1 = int1
+    }
+}
+
+func WithOptionStr2AndInt2(str2 string, int2 int) LiuYaoOption {
+    return func(options *LiuYao。Options) {
+        options.optionStr2 = str2
+        options.optionInt2 = int2
+    }
+}
+
+
+LiuYao("requiredStr")
+LiuYao("requiredStr", WithOptionStr1("mystr1"))
+LiuYao("requiredStr", WithOptionStr2AndInt2("mystr2", 22), WithOptionInt1(11))
+
 //g关于数序的一些转化函数。
 
 var ShuXuList=[]int{}
